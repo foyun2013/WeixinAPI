@@ -16,7 +16,7 @@ Weixin API
 
 ### 1、API初始化
 
-WeixinAPI 初始化所有操作的起始，调用方法：
+WeixinAPI 初始化，是后续所有 WeixinAPI 操作的起始，调用方法：
 
 ```javascript
 var wxData = {
