@@ -147,7 +147,3 @@ WeixinAPI.hideToolbar();
 ```javascript
 WeixinAPI.closeWindow();
 ```
-
-## 吐槽
-
-虽然觉得另一个 [WeixinApi](https://github.com/zxlie/WeixinApi) 代码写得烂，但是不妨碍大家到 [http://www.baidufe.com/item/f07a3be0b23b4c9606bb.html](http://www.baidufe.com/item/f07a3be0b23b4c9606bb.html) 探讨交流。
