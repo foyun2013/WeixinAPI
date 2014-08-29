@@ -4,6 +4,44 @@ window.WeixinAPI = (function() {
     var isReady = false;
     var lastShareAction;
     var wxData;
+    var networkType = 'unknow';
+
+    var wxInvokes = {
+        sendAppMessage: function(action) {
+            WeixinJSBridge.invoke(action, {
+                'appid': wxData.appId || '',
+                'img_url': wxData.imgUrl,
+                'link': wxData.link,
+                'desc': wxData.desc,
+                'title': wxData.title,
+                'img_width': '120',
+                'img_height': '120'
+            }, wrapWxInvokeCallback(action));
+        },
+        shareTimeline: function(action) {
+            WeixinJSBridge.invoke(action, {
+                'appid': wxData.appId || '',
+                'img_url': wxData.imgUrl,
+                'link': wxData.link,
+                'desc': wxData.title,
+                'title': wxData.desc, // 注意这里要分享出去的内容是desc
+                'img_width': '120',
+                'img_height': '120'
+            }, wrapWxInvokeCallback(action));
+        },
+        shareWeibo: function(action) {
+            WeixinJSBridge.invoke(action, {
+                'content': wxData.desc,
+                'url': wxData.link
+            }, wrapWxInvokeCallback(action));
+        },
+        getNetworkType: function(callback) {
+            WeixinJSBridge.invoke('getNetworkType', {}, function (e) {
+                // 在这里拿到e.err_msg，这里面就包含了所有的网络类型
+                if (callback) callback(e.err_msg);
+            });
+        }
+    };
 
     function ready(data, callback) {
         var self = this;
@@ -35,6 +73,10 @@ window.WeixinAPI = (function() {
         WeixinJSBridge.on('menu:share:weibo', function() {
             wxShare('shareWeibo');
         });
+        getNetworkType(true);
+        setInterval(function() {
+            getNetworkType(true);
+        }, 3e4);
         if (callback) callback.call(null, context);
     }
 
@@ -45,37 +87,6 @@ window.WeixinAPI = (function() {
             lastShareAction = action;
         }
     }
-
-    var wxInvokes = {
-        sendAppMessage: function(action) {
-            WeixinJSBridge.invoke(action, {
-                'appid': wxData.appId || '',
-                'img_url': wxData.imgUrl,
-                'link': wxData.link,
-                'desc': wxData.desc,
-                'title': wxData.title,
-                'img_width': '120',
-                'img_height': '120'
-            }, wrapWxInvokeCallback(action));
-        },
-        shareTimeline: function(action) {
-            WeixinJSBridge.invoke(action, {
-                'appid': wxData.appId || '',
-                'img_url': wxData.imgUrl,
-                'link': wxData.link,
-                'desc': wxData.title,
-                'title': wxData.desc, // 注意这里要分享出去的内容是desc
-                'img_width': '120',
-                'img_height': '120'
-            }, wrapWxInvokeCallback(action));
-        },
-        shareWeibo: function(action) {
-            WeixinJSBridge.invoke(action, {
-                'content': wxData.desc,
-                'url': wxData.link
-            }, wrapWxInvokeCallback(action));
-        }
-    };
     
     function wrapWxInvokeCallback(action) {
         return function(resp) {
@@ -212,11 +223,15 @@ window.WeixinAPI = (function() {
     }
 
     function getNetworkType(callback) {
-        if (isReady && callback && typeof callback === 'function') {
-            WeixinJSBridge.invoke('getNetworkType', {}, function (e) {
-                // 在这里拿到e.err_msg，这里面就包含了所有的网络类型
-                callback(e.err_msg);
-            });
+        if (isReady) {
+            if (typeof callback === 'function' || callback === true) {
+                wxInvokes.getNetworkType(function(type) {
+                    networkType = type || 'unknow';
+                    callback.call(null, networkType);
+                });
+            } else {
+                return networkType;
+            }
         }
     }
     
@@ -300,6 +315,7 @@ window.WeixinAPI = (function() {
          *  - network_type:edge     非wifi，包含3G/2G
          *  - network_type:fail     网络断开连接
          *  - network_type:wwan     2g或者3g
+         *  - unknow                未知网络
          *
          * @param {Function} callback
          */
