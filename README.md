@@ -24,7 +24,7 @@ var wxData = {
     'imgUrl': '', // 分享显示的图标
     'link': 'http://maxzhang.github.io', // 分享链接
     'title': "大家好，我是炎燎（maxzhang）", // 分享标题
-    'desc': '另一个WeixinApi的代码写得真的有点烂，另一个WeixinApi的链接在页面最下面。' // 分享内容
+    'desc': '另一个WeixinApi的接口设计太糟烂，无力吐槽。' // 分享内容
 };
 
 WeixinAPI.ready(wxData);
