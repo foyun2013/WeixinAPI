@@ -37,7 +37,7 @@ wxData.link = 'http://www.75team.com';
 ```
 
 
-### 2、监听分享事件
+### 2、分享事件监听
 
 支持的事件名称：
  - `ready` 准备分享
@@ -66,7 +66,7 @@ WeixinAPI.on('timeline:fail', function() { alert('share timeline failure!'); });
 ```
 
 
-### 3、移除监听事件
+### 3、移除事件监听
 
 调用方法：
 
