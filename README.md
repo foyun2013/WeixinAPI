@@ -26,7 +26,6 @@ var wxData = {
     'title': "大家好，我是炎燎（maxzhang）", // 分享标题
     'desc': '另一个WeixinApi的接口设计太糟烂，无力吐槽。' // 分享内容
 };
-
 WeixinAPI.ready(wxData);
 ```
 
