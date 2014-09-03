@@ -26,7 +26,6 @@ var wxData = {
     'title': "大家好，我是炎燎（maxzhang）", // 分享标题
     'desc': '另一个WeixinApi的接口设计太糟烂，无力吐槽。' // 分享内容
 };
-
 WeixinAPI.ready(wxData);
 ```
 
@@ -110,10 +109,10 @@ Network 类型取值：
 调用方法：
 
 ```javascript
-// 同步调用，30秒同步一次 WeixinJSBridge 返回的网络状态
+// 同步调用，30秒同步一次 WeixinJSBridge 返回的网络状态，所以会有误差
 var networkType = WeixinAPI.getNetworkType();
 
-// 异步调用
+// 异步调用，能获取精确的网络状态
 WeixinAPI.getNetworkType(function(networkType) {
     alert(networkType);
 });

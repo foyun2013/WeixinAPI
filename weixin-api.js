@@ -1,3 +1,15 @@
+/*!
+ * 微信 WebView JS 接口封装类，用来替代 WeixinJSBridge 超级难用的接口。
+ *
+ * 1、分享到微信朋友圈、微信好友或腾讯微博
+ * 2、调用微信客户端的图片播放组件
+ * 3、获取当前的网络状态
+ * 4、隐藏/显示右上角的菜单入口
+ * 5、隐藏/显示底部浏览器工具栏
+ * 6、关闭当前WebView页面
+ *
+ * @author maxzhang<zhangdaiping@gmail.com> http://maxzhang.github.io
+ */
 window.WeixinAPI = (function() {
     var events = {};
     var asynchronous = false;
