@@ -224,10 +224,13 @@ window.WeixinAPI = (function() {
 
     function getNetworkType(callback) {
         if (isReady) {
-            if (typeof callback === 'function' || callback === true) {
+            var isFn = Object.prototype.toString.call(callback) === '[object Function]';
+            if (isFn || callback === true) {
                 wxInvokes.getNetworkType(function(type) {
                     networkType = type || 'unknow';
-                    callback.call(null, networkType);
+                    if (isFn) {
+                        callback.call(null, networkType);
+                    }
                 });
             } else {
                 return networkType;
