@@ -146,7 +146,6 @@ window.WeixinAPI = (function() {
         } else {
             resp = 'fail';
         }
-        alert(getEventName(action, resp));
         fireEvent(getEventName(action, resp), [msg]);
         fireEvent(resp, [msg]);
     }
