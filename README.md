@@ -52,10 +52,14 @@ WeixinAPI.on('ok', function() { alert('share success!'); });
 WeixinAPI.on('fail', function() { alert('share failure!'); });
 ```
 
-除此之外，你还可监听特定动作的事件，支持：
- - `timeline` 朋友圈
- - `appmessage` 微信朋友
- - `weibo` 腾讯微博
+最新版本微信已经不再区分分享动作，分享只响应统一的"general_share"动作
+
+以下接口只有在微信5.4以下版本才有效
+
+<del>除此之外，你还可监听特定动作的事件，支持：</del>
+ - <del>`timeline` 朋友圈</del>
+ - <del>`appmessage` 微信朋友</del>
+ - <del>`weibo` 腾讯微博</del>
 
 调用方法：
 
@@ -129,7 +133,7 @@ WeixinAPI.hideOptionMenu();
 ```
 
 
-### 7、隐藏/显示底部浏览器工具栏
+### 7、隐藏/显示底部浏览器工具栏，仅对公众号页面有效
 
 调用方法：
 
@@ -146,3 +150,9 @@ WeixinAPI.hideToolbar();
 ```javascript
 WeixinAPI.closeWindow();
 ```
+
+## DEMO
+
+微信扫描下面二维码查看例子：
+
+![demo qrcode](http://p4.qhimg.com/d/inn/248a29db/qrcode.png)

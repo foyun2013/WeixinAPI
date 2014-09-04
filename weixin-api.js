@@ -322,9 +322,9 @@ window.WeixinAPI = (function() {
          *  - fail
          *  - complete
          * 
-         * 最新版本微信已经不再区分分享动作，分享统一响应"general_share"
+         * 最新版本微信已经不再区分分享动作，分享只响应统一的"general_share"动作
          * 
-         * 以下接口之后微信5.4以下版本有效
+         * 以下接口只有在微信5.4以下版本才有效
          * <del>对应分享动作，增加前缀，如：appmessagel:ok</del>
          *  - <del>appmessage</del>
          *  - <del>timeline</del>
@@ -371,17 +371,17 @@ window.WeixinAPI = (function() {
         hideOptionMenu: hideOptionMenu,
         
         /**
-         * 显示底部工具栏
+         * 显示底部工具栏，仅对公众号页面有效
          */
         showToolbar: showToolbar,
         
         /**
-         * 隐藏底部工具栏
+         * 隐藏底部工具栏，仅对公众号页面有效
          */
         hideToolbar: hideToolbar,
         
         /**
-         * 关闭当前微信公众平台页面
+         * 关闭当前WebView页面
          */
         closeWindow: closeWindow
     };
