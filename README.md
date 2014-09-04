@@ -12,7 +12,16 @@ Weixin API
  6. 关闭当前WebView页面
 
 
-## 使用方法
+## DEMO
+
+[http://jsbin.com/woluy/latest](http://jsbin.com/woluy/latest)
+
+微信扫描下面二维码查看例子：
+
+![demo qrcode](http://p4.qhimg.com/d/inn/248a29db/qrcode.png)
+
+
+## API
 
 ### 1、API初始化
 
@@ -149,10 +158,3 @@ WeixinAPI.hideToolbar();
 WeixinAPI.closeWindow();
 ```
 
-## DEMO
-
-[http://jsbin.com/woluy/latest](http://jsbin.com/woluy/latest)
-
-微信扫描下面二维码查看例子：
-
-![demo qrcode](http://p4.qhimg.com/d/inn/248a29db/qrcode.png)
