@@ -17,6 +17,7 @@ window.WeixinAPI = (function() {
     var lastShareAction;
     var wxData;
     var networkType = 'unknow';
+    var generalHandler;
 
     var wxInvokes = {
         sendAppMessage: function(action) {
@@ -26,8 +27,8 @@ window.WeixinAPI = (function() {
                 'link': wxData.link,
                 'desc': wxData.desc,
                 'title': wxData.title,
-                'img_width': '120',
-                'img_height': '120'
+                'img_width': '640',
+                'img_height': '640'
             }, wrapWxInvokeCallback(action));
         },
         shareTimeline: function(action) {
@@ -37,14 +38,25 @@ window.WeixinAPI = (function() {
                 'link': wxData.link,
                 'desc': wxData.title,
                 'title': wxData.desc, // 注意这里要分享出去的内容是desc
-                'img_width': '120',
-                'img_height': '120'
+                'img_width': '640',
+                'img_height': '640'
             }, wrapWxInvokeCallback(action));
         },
         shareWeibo: function(action) {
             WeixinJSBridge.invoke(action, {
                 'content': wxData.desc,
                 'url': wxData.link
+            }, wrapWxInvokeCallback(action));
+        },
+        generalShare: function(action) {
+            generalHandler.generalShare({
+                'appid': wxData.appId || '',
+                'img_url': wxData.imgUrl,
+                'link': wxData.link,
+                'desc': wxData.desc,
+                'title': wxData.title,
+                'img_width': '640',
+                'img_height': '640'
             }, wrapWxInvokeCallback(action));
         },
         getNetworkType: function(callback) {
@@ -85,6 +97,10 @@ window.WeixinAPI = (function() {
         WeixinJSBridge.on('menu:share:weibo', function() {
             wxShare('shareWeibo');
         });
+        WeixinJSBridge.on('menu:general:share', function(general) {
+            generalHandler = general;
+            wxShare('generalShare');
+        });
         getNetworkType(true);
         setInterval(function() {
             getNetworkType(true);
@@ -107,28 +123,32 @@ window.WeixinAPI = (function() {
     }
 
     function wxInvokeCallback(action, resp) {
-        switch (resp.err_msg) {
-            // send_app_msg:cancel 用户取消
-            case 'send_app_msg:cancel':
-                fireEvent(getEventName(action, 'cancel'), [resp.err_msg]);
-                fireEvent('cancel', [resp.err_msg]);
-                break;
-            // send_app_msg:confirm 发送成功
-            //case 'send_app_msg:confirm':
-            case 'send_app_msg:ok':
-                fireEvent(getEventName(action, 'ok'), [resp.err_msg]);
-                fireEvent('ok', [resp.err_msg]);
-                break;
-            // send_app_msg:fail　发送失败
-            //case 'send_app_msg:fail':
-            default:
-                fireEvent(getEventName(action, 'fail'), [resp.err_msg]);
-                fireEvent('fail', [resp.err_msg]);
-                break;
-        }
-        // 无论成功失败都会执行的回调
+        handleWxInvokeCallback(action, resp.err_msg);
         fireEvent(getEventName(action, 'complete'), [resp.err_msg]);
         fireEvent('complete', [resp.err_msg]);
+    }
+    
+    function handleWxInvokeCallback(action, msg) {
+        var prefix, resp;
+        if (action == 'sendAppMessage') {
+            prefix = 'send_app_msg';
+        } else if (action == 'shareTimeline') {
+            prefix = 'share_timeline';
+        } else if (action == 'shareWeibo') {
+            prefix = 'share_weibo';
+        }else if (action == 'generalShare') {
+            prefix = 'general_share';
+        }
+        if (msg == (prefix + ':cancel')) {
+            resp = 'cancel';
+        } else if (msg == (prefix + ':ok')) {
+            resp = 'ok';
+        } else {
+            resp = 'fail';
+        }
+        alert(getEventName(action, resp));
+        fireEvent(getEventName(action, resp), [msg]);
+        fireEvent(resp, [msg]);
     }
 
     function shareReady(action) {
@@ -199,6 +219,8 @@ window.WeixinAPI = (function() {
             prefix = 'timeline';
         } else if (action == 'shareWeibo') {
             prefix = 'weibo';
+        } else if (action == 'generalShare') {
+            prefix = 'general';
         }
         return prefix + ':' + event;
     }
@@ -301,10 +323,13 @@ window.WeixinAPI = (function() {
          *  - fail
          *  - complete
          * 
-         * 对应分享动作，增加前缀，如：appmessage:ok
-         *  - appmessage
-         *  - timeline
-         *  - weibo
+         * 最新版本微信已经不再区分分享动作，分享统一响应"general_share"
+         * 
+         * 以下接口之后微信5.4以下版本有效
+         * <del>对应分享动作，增加前缀，如：appmessagel:ok</del>
+         *  - <del>appmessage</del>
+         *  - <del>timeline</del>
+         *  - <del>weibo</del>
          */
         on: addListener,
 
