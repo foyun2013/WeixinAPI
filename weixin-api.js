@@ -123,22 +123,19 @@ window.WeixinAPI = (function() {
     }
 
     function wxInvokeCallback(action, resp) {
-        handleWxInvokeCallback(action, resp.err_msg);
-        fireEvent(getEventName(action, 'complete'), [resp.err_msg]);
-        fireEvent('complete', [resp.err_msg]);
-    }
-    
-    function handleWxInvokeCallback(action, msg) {
-        var res;
+        var msg = resp.err_msg;
+        var result;
         if (/:cancel$/.test(msg)) {
-            res = 'cancel';
+            result = 'cancel';
         } else if (/:ok$/.test(msg)) {
-            res = 'ok';
+            result = 'ok';
         } else {
-            res = 'fail';
+            result = 'fail';
         }
-        fireEvent(getEventName(action, res), [msg]);
+        fireEvent(getEventName(action, result), [msg]);
         fireEvent(resp, [msg]);
+        fireEvent(getEventName(action, 'complete'), [msg]);
+        fireEvent('complete', [msg]);
     }
 
     function shareReady(action) {
