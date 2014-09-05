@@ -129,24 +129,15 @@ window.WeixinAPI = (function() {
     }
     
     function handleWxInvokeCallback(action, msg) {
-        var prefix, resp;
-        if (action == 'sendAppMessage') {
-            prefix = 'send_app_msg';
-        } else if (action == 'shareTimeline') {
-            prefix = 'share_timeline';
-        } else if (action == 'shareWeibo') {
-            prefix = 'share_weibo';
-        }else if (action == 'generalShare') {
-            prefix = 'general_share';
-        }
-        if (msg == (prefix + ':cancel')) {
-            resp = 'cancel';
-        } else if (msg == (prefix + ':ok')) {
-            resp = 'ok';
+        var res;
+        if (/:cancel$/.test(msg)) {
+            res = 'cancel';
+        } else if (/:ok$/.test(msg)) {
+            res = 'ok';
         } else {
-            resp = 'fail';
+            res = 'fail';
         }
-        fireEvent(getEventName(action, resp), [msg]);
+        fireEvent(getEventName(action, res), [msg]);
         fireEvent(resp, [msg]);
     }
 
