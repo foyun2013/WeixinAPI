@@ -127,7 +127,7 @@ window.WeixinAPI = (function() {
         var result;
         if (/:cancel$/.test(msg)) {
             result = 'cancel';
-        } else if (/:ok$/.test(msg)) {
+        } else if (/:(confirm|ok)$/.test(msg)) {
             result = 'ok';
         } else {
             result = 'fail';
