@@ -133,7 +133,7 @@ window.WeixinAPI = (function() {
             result = 'fail';
         }
         fireEvent(getEventName(action, result), [msg]);
-        fireEvent(resp, [msg]);
+        fireEvent(result, [msg]);
         fireEvent(getEventName(action, 'complete'), [msg]);
         fireEvent('complete', [msg]);
     }
