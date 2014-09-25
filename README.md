@@ -18,7 +18,7 @@ Weixin API
 
 微信扫描下面二维码查看例子：
 
-![demo qrcode](http://p4.qhimg.com/d/inn/248a29db/qrcode.png)
+![demo qrcode](http://maxzhang.github.io/examples/images/weixinapi-qrcode.png)
 
 
 ## API
