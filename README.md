@@ -32,8 +32,8 @@ var wxData = {
     'appId': '', // 服务号可以填写appId，没有则留空
     'imgUrl': '', // 分享显示的图标
     'link': 'http://maxzhang.github.io', // 分享链接
-    'title': "大家好，我是炎燎（maxzhang）", // 分享标题
-    'desc': '另一个WeixinApi的接口设计太糟烂，无力吐槽。' // 分享内容
+    'title': '大家好，我是炎燎（maxzhang）', // 分享标题
+    'desc': '大家好，我是炎燎（maxzhang）' // 分享内容
 };
 WeixinAPI.ready(wxData);
 ```
