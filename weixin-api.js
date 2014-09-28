@@ -7,7 +7,8 @@
  * 4、隐藏/显示右上角的菜单入口
  * 5、隐藏/显示底部浏览器工具栏
  * 6、关闭当前WebView页面
- *
+ * 
+ * @homepage https://github.com/maxzhang/WeixinAPI
  * @author maxzhang<zhangdaiping@gmail.com> http://maxzhang.github.io
  */
 window.WeixinAPI = (function() {
