@@ -37,8 +37,8 @@ window.WeixinAPI = (function() {
                 'appid': wxData.appId || '',
                 'img_url': wxData.imgUrl,
                 'link': wxData.link,
-                'desc': wxData.title,
-                'title': wxData.desc, // 注意这里要分享出去的内容是desc
+                'desc': wxData.desc,
+                'title': wxData.title,
                 'img_width': '640',
                 'img_height': '640'
             }, wrapWxInvokeCallback(action));
