@@ -133,6 +133,15 @@ window.WeixinAPI = (function() {
         } else {
             result = 'fail';
         }
+        /*
+         * 最新版本微信已经不再区分分享动作，分享只响应统一的"general_share"动作
+         * 
+         * 以下 action 只有在微信5.4以下版本才有效
+         * <del>对应分享动作，增加前缀，如：appmessagel:ok</del>
+         *  - <del>appmessage</del>
+         *  - <del>timeline</del>
+         *  - <del>weibo</del>
+         */
         fireEvent(getEventName(action, result), [msg]);
         fireEvent(result, [msg]);
         fireEvent(getEventName(action, 'complete'), [msg]);
@@ -310,14 +319,6 @@ window.WeixinAPI = (function() {
          *  - ok
          *  - fail
          *  - complete
-         * 
-         * 最新版本微信已经不再区分分享动作，分享只响应统一的"general_share"动作
-         * 
-         * 以下接口只有在微信5.4以下版本才有效
-         * <del>对应分享动作，增加前缀，如：appmessagel:ok</del>
-         *  - <del>appmessage</del>
-         *  - <del>timeline</del>
-         *  - <del>weibo</del>
          */
         on: addListener,
 
