@@ -42,11 +42,11 @@ window.WeixinAPI = (function() {
 
     function ready(data, callback) {
         var self = this;
+        wxData = data || {};
         if (!isReady) {
             var _wxBridgeReady = function () {
                 wxBridgeReady(self, callback);
             };
-            wxData = data || {};
             if ('addEventListener' in document) {
                 document.addEventListener('WeixinJSBridgeReady', _wxBridgeReady, false);
             } else if (document.attachEvent) {
