@@ -54,7 +54,7 @@ wxData.link = 'http://www.75team.com';
  - `fail` 分享失败
  - `complete` 分享结束
 
-默认事件监听应用到全局，不伦哪个分享渠道都会执行毁掉。调用方法：
+默认事件监听应用到全局，不论哪个分享渠道都会执行回调函数。调用方法：
 
 ```javascript
 WeixinAPI.on('ok', function() { alert('share success!'); });
@@ -68,7 +68,7 @@ WeixinAPI.on('fail', function() { alert('share failure!'); });
  - <del>`appmessage` 微信朋友</del>
  - <del>`weibo` 腾讯微博</del>
 
-调用方法：
+<del>调用方法：</del>
 
 ```javascript
 WeixinAPI.on('timeline:ok', function() { alert('share timeline success!'); });
